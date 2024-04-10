@@ -3,8 +3,12 @@ let encriptar = document.querySelector('#encriptar-btn');
 let desencriptar = document.querySelector('#desencriptar-btn');
 let txtEncriptado = document.querySelector('.texto-encriptado');
 let copiarBtn = document.querySelector('#copiar-btn');
+let cifrado = document.querySelector('.cifrado');
+let txtdefault = document.querySelector('.txt-vacio')
 
 let texto = txtEncriptado.innerHTML;
+
+copiarBtn.disabled = true;
 
 function encriptarTexto(event) {
     event.preventDefault();
@@ -16,7 +20,7 @@ function encriptarTexto(event) {
     //Verificando
     let textoOriginal = encriptarTxt.value;
 
-
+    txtdefault.innerHTML = "";
     textoOriginal.split('').forEach(char => {
         switch (char) {
             case 'a':
@@ -38,11 +42,10 @@ function encriptarTexto(event) {
                 newText += char;
         }
 
-        txtEncriptado.innerHTML = newText;
-
-
-        txtEncriptado.innerHTML += '<button id="copiar-btn">Copiar</button>';
+        cifrado.innerHTML = newText;
     });
+
+    copiarBtn.disabled = false;
 }
 
 function desencriptarTexto(event) {
@@ -52,6 +55,8 @@ function desencriptarTexto(event) {
     txtEncriptado.style.fontSize = '24px';
     txtEncriptado.style.textAlign = 'start';
 
+    txtdefault.innerHTML = "";
+
     let texto = encriptarTxt.value;
     texto = texto.replace(/ai/g, 'a');
     texto = texto.replace(/enter/g, 'e');
@@ -59,21 +64,17 @@ function desencriptarTexto(event) {
     texto = texto.replace(/ober/g, 'o');
     texto = texto.replace(/ufat/g, 'u');
 
-
-    txtEncriptado.innerHTML = texto;
-    txtEncriptado.innerHTML += '<button id="copiar-btn">Copiar</button>';
+    cifrado.innerHTML = texto;
+    copiarBtn.disabled = false;
 };
 
 
-const copiarTxt = async (event) => {
+function copiarTxt(event) {
     event.preventDefault();
-    try {
-        await navigator.clipboard.writeText(txtEncriptado.innerText);
-    } catch (error) {
-        console.error('Error al copiar: ', error);
-    }
+    navigator.clipboard.writeText(cifrado.innerHTML);
+    console.log('Hola');
 }
 
 encriptar.addEventListener('click', encriptarTexto);
 copiarBtn.addEventListener('click', copiarTxt);
-desencriptar.addEventListener('click', desencriptarTexto)
+desencriptar.addEventListener('click', desencriptarTexto);
