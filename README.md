@@ -6,4 +6,4 @@ Desafío alura encriptador completado conteniendo:
   - Encriptar Texto
   - Desencriptar texto
   - Copiar texto
--HTML con todos los elementos utilizando clases.
+- HTML con todos los elementos utilizando clases.
